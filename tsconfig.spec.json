@@ -11,8 +11,5 @@
     "src/**/*.spec.ts",
     "src/**/*.d.ts"
   ],
-  "styles": [
-    "node_modules/@aws-amplify/ui-angular/theme.css",
-    "src/styles.css"
-  ],
+
 }
