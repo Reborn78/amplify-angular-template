@@ -1,0 +1,37 @@
+
+<main>
+    <h1>My Media Owners</h1>
+    
+    <button mat-button (click)="createMediaowner()">+ new</button>
+    <button (click)="toggleTeam('East')">Show East Team</button>
+    <button (click)="toggleTeam('Stagwell')">Show Stagwell Team</button>
+    <button >Import</button>
+    <button >Replace</button>
+    <button (click)="exportToExcel()">Export to Excel</button>
+    <br>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Mediaowner Name</th>
+                <th>Contact 1 Name</th>
+                <th>Contact 1 Email</th>
+                <th>Contact 2 Name</th>
+                <th>Contact 2 Email</th>
+                <th>team</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Use filteredMediaowners array for table data -->
+            <tr *ngFor="let mediaowner of filteredMediaowners">
+                <td>{{ mediaowner.mediaownername }}</td>
+                <td>{{ mediaowner.contact1name }}</td>
+                <td>{{ mediaowner.contact1email }}</td>
+                <td>{{ mediaowner.contact2name }}</td>
+                <td>{{ mediaowner.contact2email }}</td>
+                <td>{{ mediaowner.team }}</td>
+            </tr>
+        </tbody>
+    </table>
+ 
+</main>
