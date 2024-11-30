@@ -8,4 +8,15 @@ export const auth = defineAuth({
   loginWith: {
     email: true,
   },
+  groups: ["ADMINS"],
+  userAttributes: {
+    "custom:userID": {
+      dataType: "String",
+      mutable: true,
+  
+    },
+  },
 });
+
+
+    

@@ -1,0 +1,11 @@
+.app-toolbar {
+    position: fixed; /* Fixes the toolbar at the top */
+    top: 0; /* Aligns it to the top of the viewport */
+    left: 0; /* Aligns it to the left */
+    right: 0; /* Aligns it to the right */
+    z-index: 1000; /* Ensures it stays above other content */
+  }
+
+  .sign-out-button {
+    margin-left: auto; /* This will push the button to the right */
+  }

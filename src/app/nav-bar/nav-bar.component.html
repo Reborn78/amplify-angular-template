@@ -2,16 +2,16 @@
   <!-- Authenticated Slot -->
   <ng-template amplifySlot="authenticated" let-user="user" let-signOut="signOut">
       <!-- Material Toolbar -->
-      <mat-toolbar color="primary">
+      <mat-toolbar color="primary" class="app-toolbar">
           <mat-toolbar-row>
-              <span>Navigation</span>
+              
               <span class="spacer"></span>
               <button mat-button routerLink="" routerLinkActive="active">Main Page</button>
               <button mat-button routerLink="/mediaowners" routerLinkActive="active">Media Owners</button>
-              <button mat-button (click)="signOut()">Sign Out</button>
+              <button mat-button (click)="signOut()" class="sign-out-button">Sign Out ({{user?.signInDetails?.loginId}}'s)</button>
           </mat-toolbar-row>
       </mat-toolbar>
       
-      <h1>{{user?.signInDetails?.loginId}}'s</h1>
+     
   </ng-template>
 </amplify-authenticator>
