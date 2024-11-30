@@ -11,20 +11,32 @@ const schema = a.schema({
     .model({
       content: a.string(),
     })
-    .authorization(allow => [allow.owner()]),
+    .authorization((allow) => [allow.publicApiKey()]),
+
+  Mediaowner: a
+    .model({
+      mediaownername: a.string(),
+      contact1name: a.string(),
+      contact1email: a.string(),
+      contact2name: a.string(),
+      contact2email: a.string(),
+      team: a.enum(["East", "Stagwell"]),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
 });
+
+
 
 export type Schema = ClientSchema<typeof schema>;
 
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: 'userPool',
-    // defaultAuthorizationMode: 'apiKey',
-    // // API Key is used for a.allow.public() rules
-    // apiKeyAuthorizationMode: {
-    //   expiresInDays: 30,
-    // },
+    defaultAuthorizationMode: 'apiKey',
+    // API Key is used for a.allow.public() rules
+    apiKeyAuthorizationMode: {
+      expiresInDays: 30,
+    },
   },
 });
 
