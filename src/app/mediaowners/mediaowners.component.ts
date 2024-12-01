@@ -23,6 +23,7 @@ export class MediaownersComponent implements OnInit {
     this.listMediaowners();
   }
 
+
   listMediaowners() {
     client.models.Mediaowner.observeQuery().subscribe({
       next: ({ items }) => {
@@ -53,6 +54,9 @@ export class MediaownersComponent implements OnInit {
     // Filter the media owners by the selected team
     this.filteredMediaowners = this.mediaowners.filter(mediaowner => mediaowner.team === selectedTeam);
   }
+  showAllMediaowners() {
+    this.filteredMediaowners = this.mediaowners; // Reset the filtered array to show all media owners
+}
     
   deleteMediaowner(id: string) {
     client.models.Mediaowner.delete({ id })

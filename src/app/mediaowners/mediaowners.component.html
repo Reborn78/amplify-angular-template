@@ -2,13 +2,15 @@
 <main>
     <h1>My Media Owners</h1>
     
-    <button mat-button (click)="createMediaowner()">+ new</button>
-    <button (click)="toggleTeam('East')">Show East Team</button>
-    <button (click)="toggleTeam('Stagwell')">Show Stagwell Team</button>
-    <button >Import</button>
-    <button >Replace</button>
-    <button (click)="exportToExcel()">Export to Excel</button>
-    <br>
+    <div class="button-container">
+        <button mat-raised-button color="primary" (click)="createMediaowner()">+ New</button>
+        <button mat-button (click)="toggleTeam('East')">Show East Team</button>
+        <button mat-button (click)="toggleTeam('Stagwell')">Show Stagwell Team</button>
+        <button mat-button (click)="showAllMediaowners()">Show All</button> <!-- New button -->
+        <button mat-flat-button color="accent">Import</button>
+        <button mat-flat-button color="warn">Replace</button>
+        <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+      </div>
 
     <table>
         <thead>
