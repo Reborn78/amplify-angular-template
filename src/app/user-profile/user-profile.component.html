@@ -1,1 +1,8 @@
-<p>user-profile works!</p>
+<div class="user-profile">
+    <h2>User Profiles</h2>
+    <ul>
+      <li *ngFor="let user of users">
+        <strong>User ID:</strong> {{ user.userId }} - <strong>Username:</strong> {{ user.username }} {{user?.signInDetails?.loginId}}
+      </li>
+    </ul>
+  </div>

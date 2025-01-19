@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { TodosComponent } from './todos/todos.component';
-import { MediaownersComponent } from './mediaowners/mediaowners.component';
-import { Amplify } from 'aws-amplify';
-import outputs from '../../amplify_outputs.json';
-
+import { RouterOutlet, RouterModule } from '@angular/router'; // Import RouterModule
 import { AmplifyAuthenticatorModule, AuthenticatorService } from '@aws-amplify/ui-angular';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { Amplify } from 'aws-amplify';
+import outputs from '../../amplify_outputs.json';
+import { HttpClientModule } from '@angular/common/http';
 
 Amplify.configure(outputs);
 
@@ -15,16 +14,11 @@ Amplify.configure(outputs);
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
-  imports: [RouterOutlet, TodosComponent, MediaownersComponent, AmplifyAuthenticatorModule, NavBarComponent, MatButtonModule],
+  styleUrls: ['./app.component.css'],
+  imports: [RouterOutlet, RouterModule, AmplifyAuthenticatorModule, NavBarComponent, MatButtonModule, ReactiveFormsModule, HttpClientModule ], // Add RouterModule here
 })
 export class AppComponent {
-  
   title = 'amplify-angular-template';
- 
-  constructor(public authenticator: AuthenticatorService) {
-    Amplify.configure(outputs);
-  }
 
-
+  constructor(public authenticator: AuthenticatorService) {}
 }

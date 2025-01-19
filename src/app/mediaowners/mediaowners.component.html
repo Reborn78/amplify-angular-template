@@ -1,18 +1,31 @@
-
 <main>
-    <h1>My Media Owners</h1>
+    <h1>Media Owners</h1>
     
     <div class="button-container">
-        <button mat-raised-button color="primary" (click)="createMediaowner()">+ New</button>
-        <button mat-button (click)="toggleTeam('East')">Show East Team</button>
-        <button mat-button (click)="toggleTeam('Stagwell')">Show Stagwell Team</button>
-        <button mat-button (click)="showAllMediaowners()">Show All</button> <!-- New button -->
-        <button mat-flat-button color="accent">Import</button>
-        <button mat-flat-button color="warn">Replace</button>
-        <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
-      </div>
+        <input type="file" (change)="onFileSelected($event)" />
+        <button mat-flat-button color="accent" (click)="importExcel()">Import</button>
+        
+    </div>
+    
+    <div class="button-container">
+        <!-- Dropdown for team selection -->
+        <mat-form-field appearance="fill">
+            <mat-label>Select Team</mat-label>
+            <mat-select (selectionChange)="toggleTeam($event.value)">
+              <mat-option value="East">East</mat-option>
+              <mat-option value="Stagwell">Stagwell</mat-option>
+              <mat-option value="West">West</mat-option>
+              <mat-option value="Havas"> Havas</mat-option>
+              <mat-option value="Nashville">Nashville</mat-option>
+            </mat-select>
+          </mat-form-field>
 
-    <table>
+           <button mat-raised-button color="primary" (click)="createMediaowner()">+ New</button>
+      
+        <button mat-raised-button color="primary" (click)="exportToExcel()">Export to Excel</button>
+    </div>
+
+    <table *ngIf="filteredMediaowners.length > 0">
         <thead>
             <tr>
                 <th>Mediaowner Name</th>
@@ -20,20 +33,36 @@
                 <th>Contact 1 Email</th>
                 <th>Contact 2 Name</th>
                 <th>Contact 2 Email</th>
-                <th>team</th>
+                <th>Team</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            <!-- Use filteredMediaowners array for table data -->
             <tr *ngFor="let mediaowner of filteredMediaowners">
-                <td>{{ mediaowner.mediaownername }}</td>
-                <td>{{ mediaowner.contact1name }}</td>
-                <td>{{ mediaowner.contact1email }}</td>
-                <td>{{ mediaowner.contact2name }}</td>
-                <td>{{ mediaowner.contact2email }}</td>
-                <td>{{ mediaowner.team }}</td>
+                <td>
+                    <input [(ngModel)]="mediaowner.mediaownername" (blur)="updateMediaowner(mediaowner)" />
+                </td>
+                <td>
+                    <input [(ngModel)]="mediaowner.contact1name" (blur)="updateMediaowner(mediaowner)" />
+                </td>
+                <td>
+                    <input [(ngModel)]="mediaowner.contact1email" (blur)="updateMediaowner(mediaowner)" />
+                </td>
+                <td>
+                    <input [(ngModel)]="mediaowner.contact2name" (blur)="updateMediaowner(mediaowner)" />
+                </td>
+                <td>
+                    <input [(ngModel)]="mediaowner.contact2email" (blur)="updateMediaowner(mediaowner)" />
+                </td>
+                <td>
+                    <span>{{ mediaowner.team }}</span> <!-- Display team as non-editable text -->
+                </td>
+                <td>
+                    <button (click)="deleteMediaowner(mediaowner.id)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>
- 
+
+    <p *ngIf="filteredMediaowners.length === 0">No media owners to display. Please select a team / or add new media owner.</p>
 </main>

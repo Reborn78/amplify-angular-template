@@ -1,0 +1,53 @@
+/* General table styles */
+table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+/* Style for table headers */
+th {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 10px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
+}
+
+/* Style for table cells */
+td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 10px; /* Padding inside cells */
+}
+
+/* Row highlighting based on importance */
+.high-importance {
+    background-color: #ffcccc; /* Light red for high importance */
+}
+
+.medium-importance {
+    background-color: #ccffcc; /* Light green for medium importance */
+}
+
+.low-importance {
+    background-color: #ccccff; /* Light blue for low importance */
+}
+
+/* Style for crossed out text */
+.crossed-out {
+    text-decoration: line-through; /* Line through text */
+    color: gray; /* Gray color for crossed out text */
+}
+
+/* Style for the delete button */
+button {
+    background-color: #f44336; /* Red background */
+    color: white; /* White text */
+    border: none; /* No border */
+    padding: 5px 10px; /* Padding */
+    cursor: pointer; /* Pointer cursor on hover */
+    border-radius: 5px; /* Rounded corners */
+}
+
+button:hover {
+    background-color: #d32f2f; /* Darker red on hover */
+}

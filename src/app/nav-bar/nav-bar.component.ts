@@ -6,12 +6,13 @@ import { RouterLinkActive, RouterLink, RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 Amplify.configure(outputs);
 @Component({
   selector: 'app-nav-bar',
   standalone: true,
-  imports: [AmplifyAuthenticatorModule, RouterOutlet, RouterLinkActive, RouterLink, NavBarComponent,MatToolbarModule, MatButtonModule, MatIconModule],
+  imports: [AmplifyAuthenticatorModule, RouterOutlet, RouterLinkActive, RouterLink, NavBarComponent,MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })

@@ -1,1 +1,60 @@
-<p>export-contacts works!</p>
+
+
+<main>
+    <h1>Export Contacts</h1>
+    
+    <div class="button-container">
+        <mat-form-field appearance="fill">
+            <mat-label>Select Team</mat-label>
+            <mat-select (selectionChange)="toggleTeam($event.value)">
+              <mat-option value="East">East</mat-option>
+              <mat-option value="Stagwell">Stagwell</mat-option>
+              <mat-option value="West">West</mat-option>
+              <mat-option value="Havas"> Havas</mat-option>
+              <mat-option value="Nashville">Nashville</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <input type="file" (change)="onFileSelected($event)" />
+        <button mat-flat-button color="accent" (click)="importExcel()" >Export</button>
+      </div>
+   
+
+    <table *ngIf="isTeamSelected">
+        <thead>
+            <tr>
+                <th>Mediaowner Name</th>
+                <th>Contact 1 Name</th>
+                <th>Contact 1 Email</th>
+                <th>Contact 2 Name</th>
+                <th>Contact 2 Email</th>
+                <th>team</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Use filteredMediaowners array for table data -->
+            <tr *ngFor="let mediaowner of filteredMediaowners">
+                <td>
+                    {{mediaowner.mediaownername}}
+                </td>
+                <td>
+                    {{mediaowner.contact1name}}
+                </td>
+                <td>
+                    {{mediaowner.contact1email}}
+                </td>
+                <td>
+                    {{mediaowner.contact2name}}
+                </td>
+                <td>
+                    {{mediaowner.contact2email}}
+                </td>
+                <td>
+                    {{mediaowner.team}}
+                </td>
+              
+            </tr>
+        </tbody>
+    </table>
+ 
+</main>

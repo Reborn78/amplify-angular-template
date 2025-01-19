@@ -7,34 +7,6 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  UserTeam: a.model({
-    userId: a.id().required(), // Reference to User
-    teamId: a.id().required(), // Reference to Team
-    user: a.belongsTo('User', 'userId'), // Relationship to User
-    team: a.belongsTo('Team', 'teamId'), // Relationship to Team
-  })
-  .authorization((allow) => [allow.publicApiKey()]),
-
-  User: a.model({
-    id: a.id().required(), // Use a unique identifier for the user
-    email: a.string().required(),
-    username: a.string().required(),
-    userTeams: a.hasMany('UserTeam', 'userId'), // Relationship to UserTeam
-  })
-  .authorization((allow) => [allow.publicApiKey()]),
-
-  Team: a.model({
-    name: a.string().required(),
-    userTeams: a.hasMany('UserTeam', 'teamId'), // Relationship to UserTeam
-  })
-  .authorization((allow) => [allow.publicApiKey()]),
-
-
-  Todo: a
-    .model({
-      content: a.string(),
-    })
-    .authorization((allow) => [allow.publicApiKey()]),
 
   Mediaowner: a
     .model({
@@ -43,7 +15,7 @@ const schema = a.schema({
       contact1email: a.string(),
       contact2name: a.string(),
       contact2email: a.string(),
-      team: a.enum(["East", "Stagwell"]),
+      team: a.enum(["East", "Stagwell","West", "Havas", "Nashville"]),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 });

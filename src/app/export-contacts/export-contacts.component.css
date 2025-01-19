@@ -1,0 +1,43 @@
+
+
+  /* Style for the table */
+  table {
+    width: 100%; /* Make the table full width */
+    border-collapse: collapse; /* Collapse borders */
+    margin: 20px 0; /* Space above and below the table */
+    font-family: Arial, sans-serif; /* Set the font for the table */
+}
+
+/* Style for table headers */
+th {
+    background-color: #4CAF50; /* Green background for header */
+    color: white; /* White text color */
+    padding: 12px; /* Space within header cells */
+    text-align: left; /* Align text to the left */
+}
+
+/* Style for table cells */
+td {
+    border: 1px solid #ddd; /* Light gray border around cells */
+    padding: 8px; /* Space within cell */
+}
+
+/* Alternate row colors */
+tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray background for even rows */
+}
+
+.button-container {
+    display: flex; /* Use flexbox for layout */
+    justify-content: space-between; /* Space buttons evenly */
+    align-items: center; /* Center buttons vertically */
+    margin: 16px 0; /* Add some margin for spacing */
+  }
+  
+  .button-container button {
+    margin-right: 8px; /* Add some space between buttons */
+  }
+  
+  .button-container button:last-child {
+    margin-right: 0; /* Remove margin from the last button */
+  }

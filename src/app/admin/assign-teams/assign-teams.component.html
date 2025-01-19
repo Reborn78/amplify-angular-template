@@ -1,0 +1,15 @@
+<div class="assign-teams">
+  <h2>Manage Teams</h2>
+
+  <form [formGroup]="teamForm" (ngSubmit)="addTeam()">
+    <input formControlName="name" placeholder="Team Name" />
+    <button type="submit">Add Team</button>
+  </form>
+
+  <ul>
+    <li *ngFor="let team of teams">
+      {{ team.name }} <!-- Display the team name -->
+      <button (click)="deleteTeam(team)">Delete</button>
+    </li>
+  </ul>
+</div>

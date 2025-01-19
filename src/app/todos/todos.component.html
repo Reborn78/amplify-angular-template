@@ -1,17 +1,80 @@
 <!-- todos.component.html -->
 <main>
-    <h1>My todos</h1>
-    <button (click)="createTodo()">+ new</button>
+    <h1>My Todos</h1>
+    <button (click)="createTodo()">+ New</button>
     <br>
     <input type="file" (change)="ReadExcel($event)">
     <br>
     <button (click)="exportToExcel()">Export to Excel</button>
-    <!-- <button (click)="createTodo()">+ new</button> -->
-    <ul>
-        <li 
-            *ngFor="let todo of todos;" (click)="deleteTodo(todo.id)">
-            {{ todo.content }}
-        </li>
-    </ul>
- 
+    
+    <table>
+        <thead>
+            <tr>
+                <th (click)="toggleSort('content')">Todo</th>
+                <th (click)="toggleSort('importance')">Importance</th>
+                <th (click)="toggleSort('dueDate')">Due Date</th>
+                <th>Crossed Out</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of todos;" 
+                [ngClass]="{
+                    'high-importance': todo.importance === 'high',
+                    'medium-importance': todo.importance === 'medium',
+                    'low-importance': todo.importance === 'low'
+                }">
+                <td [ngClass]="{'crossed-out': todo.isCrossedOut}">
+                    <input 
+                        type="text" 
+                        [(ngModel)]="todo.content" 
+                        (keyup.enter)="updateContent(todo)" 
+                        (blur)="updateContent(todo)" 
+                    />
+                </td>
+                <td>
+                    <select [(ngModel)]="todo.importance" (change)="updateImportance(todo)">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" [ngModel]="formatDate(todo.dueDate)" (ngModelChange)="onDateChange($event, todo)" />
+                </td>
+                <td>
+                    <span *ngIf="todo.isCrossedOut">✔️</span>
+                    <span *ngIf="!todo.isCrossedOut">❌</span>
+                </td>
+                <td>
+                    <button (click)="toggleCrossOut(todo)">Cross Out</button>
+                    <button (click)="deleteTodo(todo.id)">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input 
+                        type="text" 
+                        [(ngModel)]="newTodoContent" 
+                        (keyup.enter)="createTodo()" 
+                        placeholder="New todo..." 
+                    />
+                </td>
+                <td>
+                    <select [(ngModel)]="newTodoImportance">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </td>
+                <td>
+                    <input type="date" [(ngModel)]="newTodoDueDate" />
+                </td>
+                <td></td>
+                <td>
+                    <button (click)="createTodo()">Add</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 </main>

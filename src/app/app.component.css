@@ -1,3 +1,9 @@
 .spacer {
     flex: 1 1 auto; /* This will push the buttons to the right */
   }
+  /* styles.css or styles.scss */
+body {
+  background-color: white; /* Change background color to white */
+  margin: 0; /* Remove default margin */
+  font-family: Arial, sans-serif; /* Optional: Set a default font */
+}

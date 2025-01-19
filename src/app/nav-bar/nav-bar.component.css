@@ -9,3 +9,12 @@
   .sign-out-button {
     margin-left: auto; /* This will push the button to the right */
   }
+
+  .mat-toolbar{
+    background-color: rgba(12, 12, 10, 0.466);
+  }
+
+  .matButton{
+    background-color: rgba(12, 12, 10, 0.644);
+    margin: 5px;
+  }
