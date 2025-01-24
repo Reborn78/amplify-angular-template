@@ -10,6 +10,16 @@ import { MatSelectModule } from '@angular/material/select';
 
 const client = generateClient<Schema>();
 
+// Define the MediaOwnerData interface
+interface MediaOwnerData {
+  'Media Vendor': string;
+  'Media Vendor Contact Name 1': string;
+  'Media Vendor Contact Email 1': string;
+  'Media Vendor Contact Name 2': string;
+  'Media Vendor Contact Email 2': string;
+  'Team': string; // Assuming you have a Team field
+}
+
 @Component({
   selector: 'app-mediaowners',
   standalone: true,
@@ -150,41 +160,67 @@ sortFilteredMediaowners() {
     }
 }
 
-  ReadExcelMediaowner(file: File) {
-      let fileReader = new FileReader();
-      fileReader.readAsBinaryString(file);
+ReadExcelMediaowner(file: File) {
+  let fileReader = new FileReader();
+  fileReader.readAsBinaryString(file);
 
-      fileReader.onload = (e) => {
-          console.log('File loaded successfully');
-          var workBook = XLSX.read(fileReader.result, { type: 'binary' });
-          var sheetNames = workBook.SheetNames;
-          const excelData = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
+  fileReader.onload = (e) => {
+      console.log('File loaded successfully');
+      const workBook = XLSX.read(fileReader.result, { type: 'binary' });
+      const sheetNames = workBook.SheetNames;
+      const excelData: MediaOwnerData[] = XLSX.utils.sheet_to_json(workBook.Sheets[sheetNames[0]]);
 
-          // Create TODO items from the Excel data
-          for (let item of excelData) {
-              this.createMediaownerFromExcel(item);
-              console.log(item);
+      let duplicateCount = 0; // Initialize a counter for duplicates
+
+      // Create media owners from the Excel data
+      for (let item of excelData) {
+          // Check for duplicates before creating
+          const exists = this.checkDuplicateMediaOwner(item['Media Vendor']);
+          if (exists) {
+              duplicateCount++; // Increment duplicate count if a duplicate is found
+          } else {
+              this.createMediaownerFromExcel(item); // Create media owner if no duplicate
           }
-      };
-  }
+          console.log(item);
+      }
 
-  createMediaownerFromExcel(item: any) {
-      if (item['Media Vendor']) {
-          try {
-              client.models.Mediaowner.create({
-                  mediaownername: item['Media Vendor'],
-                  contact1name: item['Media Vendor Contact Name 1'],
-                  contact1email: item['Media Vendor Contact Email 1'],
-                  contact2name: item['Media Vendor Contact Name 2'],
-                  contact2email: item['Media Vendor Contact Email 1'],
-                  team: this.selectedTeam,
-              });
-              this.listMediaowners(); // Refresh the list
-          } catch (error) {
-              console.error('Error creating mediaowner from Excel', error);
-          }
+      // Show alert if duplicates were found
+      if (duplicateCount > 0) {
+          window.alert(`Number of duplicate media vendors found: ${duplicateCount}`);
+      }
+  };
+}
+
+createMediaownerFromExcel(item: MediaOwnerData) {
+  if (item['Media Vendor']) {
+      try {
+          client.models.Mediaowner.create({
+              mediaownername: item['Media Vendor'],
+              contact1name: item['Media Vendor Contact Name 1'],
+              contact1email: item['Media Vendor Contact Email 1'],
+              contact2name: item['Media Vendor Contact Name 2'],
+              contact2email: item['Media Vendor Contact Email 2'], // Corrected to use the right field
+              team: this.selectedTeam,
+          });
+          this.listMediaowners(); // Refresh the list
+      } catch (error) {
+          console.error('Error creating mediaowner from Excel', error);
       }
   }
+}
+// Method to check for duplicate media owners
+checkDuplicateMediaOwner(mediaOwnerName: any): boolean {
+  // Ensure mediaOwnerName is a string before calling toLowerCase
+  if (typeof mediaOwnerName !== 'string') {
+      console.warn('Invalid media owner name:', mediaOwnerName);
+      return false; // Not a string, so cannot be a duplicate
+  }
+
+  // Check for duplicates in the mediaowners array
+  return this.mediaowners.some(mediaowner => 
+      mediaowner.mediaownername.toLowerCase() === mediaOwnerName.toLowerCase()
+  );
+}
 
   exportToExcel() {
     // Prepare data for Excel export
